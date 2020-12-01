@@ -1,4 +1,4 @@
-//Programer: Anthony Montemuro
+//Programmer: Anthony Montemuro
 //Date: 12/1/2020
 //Description: Solution to Day 1 in Advent of Code 2020
 
