@@ -16,7 +16,7 @@ int main()
 	bool isFound = false;
 	vector<int> v;
 	ifstream puzzle_input;
-	int i, j, k, sum;
+	int i, j, k;
 	//Open file
 	puzzle_input.open("C:/Users/TonyA/OneDrive/Documents/AoC2020/day-1/puzzleInput.txt");
 	//If file cannot open, return 1
