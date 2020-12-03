@@ -1,10 +1,13 @@
 //Programmer: Anthony Montemuro
-//Date: 12/3/2020
+//Date: 12/2/2020
 //Description: Solution to Day 3 in Advent of Code 2020
 
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
+
+int traverse(const std::vector<std::string>& v, int right, int down);
 
 using namespace std;
 
@@ -13,15 +16,10 @@ int main()
 	//Declare variables
 	vector<string> v;
 	int treeCtr[5];
-	int pos = 0, len, product = 1;
+	int product = 1;
 	ifstream puzzle_input;
-	//Initialize treeCtr array
-	for (int i = 0; i < 5; i++)
-	{
-		treeCtr[i] = 0;
-	}
 	//Open file
-	puzzle_input.open("C:/Users/TonyA/OneDrive/Documents/AoC2020/day-3/puzzleInput.txt");
+	puzzle_input.open("puzzleInput.txt");
 	//Return 1 if file cannot be opened
 	if (!puzzle_input)
 	{
@@ -34,56 +32,12 @@ int main()
 		puzzle_input >> s;
 		v.push_back(s);
 	}
-	len = v.front().length();
-	//Right 1, down 1
-	for (int i = 0; i < v.size(); i++)
-	{
-		if (v.at(i).at(pos) == '#')
-		{
-			treeCtr[0]++;
-		}
-		pos = (pos + 1) % len;
-	}
-	pos = 0;
-	//Right 3, down 1
-	for (int i = 0; i < v.size(); i++)
-	{
-		if (v.at(i).at(pos) == '#')
-		{
-			treeCtr[1]++;
-		}
-		pos = (pos + 3) % len;
-	}
-	pos = 0;
-	//Right 5, down 1
-	for (int i = 0; i < v.size(); i++)
-	{
-		if (v.at(i).at(pos) == '#')
-		{
-			treeCtr[2]++;
-		}
-		pos = (pos + 5) % len;
-	}
-	pos = 0;
-	//Right 7, down 1
-	for (int i = 0; i < v.size(); i++)
-	{
-		if (v.at(i).at(pos) == '#')
-		{
-			treeCtr[3]++;
-		}
-		pos = (pos + 7) % len;
-	}
-	pos = 0;
-	//Right 1, down 2
-	for (int i = 0; i < v.size(); i+=2)
-	{
-		if (v.at(i).at(pos) == '#')
-		{
-			treeCtr[4]++;
-		}
-		pos = (pos + 1) % len;
-	}
+	//Calculate the number of trees per traversal
+	treeCtr[0] = traverse(v, 1, 1);
+	treeCtr[1] = traverse(v, 3, 1);
+	treeCtr[2] = traverse(v, 5, 1);
+	treeCtr[3] = traverse(v, 7, 1);
+	treeCtr[4] = traverse(v, 1, 2);
 	//Get the product of all traversals
 	for (int i = 0; i < 5; i++)
 	{
@@ -93,4 +47,24 @@ int main()
 	cout << treeCtr[1] << endl;
 	cout << product << endl;
 	return 0;
+}
+
+int traverse(const vector<string>& v, int right, int down)
+{
+	/*
+		Precond: v is of type const& vector<string>, which stores the puzzle input; right is the number of steps right, and is of type int; down is the number of steps down, and is of type int
+		Postcond: The number of trees encountered on the given traversal is returned
+	*/
+	int pos = 0, treeCtr = 0, len = v.front().length();
+	for (int i = 0; i < v.size(); i+=down)
+	{
+		//If pos is at a tree, increase treeCtr
+		if (v.at(i).at(pos) == '#')
+		{
+			treeCtr++;
+		}
+		//If pos exceeds len, it will loop back to the start
+		pos = (pos + right) % len;
+	}
+	return treeCtr;
 }
