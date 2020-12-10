@@ -14,7 +14,6 @@ using namespace std;
 int result1(const vector<int>& v);
 long long int result2(const vector<int>& v);
 int numOfAdapters(int n, const vector<int>& v);
-bool isValid(const vector<int>& v);
 
 int main()
 {
