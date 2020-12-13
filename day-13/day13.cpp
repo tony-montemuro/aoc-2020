@@ -51,8 +51,6 @@ int main()
     //Print results to console
     result1 = earliestBus(ids, time);
     log(result1);
-    // vector<int> test_ids = {7, 13, 59, 31, 19};
-    // vector<int> test_cons = {0, 0, 2, 1, 0};
     result2 = subsequent_index(ids, constraints);
     log(result2);
     return 0;
