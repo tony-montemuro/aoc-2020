@@ -1,6 +1,6 @@
 //Programmer: Anthony Montemuro
-//Date: 12/13/2020
-//Description: Solution to Day 13 in Advent of Code 2020
+//Date: 12/14/2020
+//Description: Solution to Day 14 in Advent of Code 2020
 
 #include <iostream>
 #include <fstream>
