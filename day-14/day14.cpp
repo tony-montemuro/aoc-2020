@@ -50,13 +50,6 @@ int main()
     log(result1);
     result2 = sumOfVals2(bitmasks, memAdresses);
     log(result2);
-    // string add = "X0XX";
-    // unordered_map<string, int> mem;
-    // genAddresses(add, mem, 3);
-    // for (auto itr = mem.begin(); itr != mem.end(); itr++) {
-    //     log(itr->first);
-    //     log(itr->second);
-    // }
     return 0;
 }
 
