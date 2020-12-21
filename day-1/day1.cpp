@@ -1,85 +1,67 @@
 //Programmer: Anthony Montemuro
-//Date: 12/1/2020
-//Description: Solution to Day 1 in Advent of Code 2020
+//Date: 12/20/2020
+//Description: Cleaned up Solution to Day 1 in Advent of Code 2020
 
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <sstream>
-#include <algorithm>
 
-using namespace std;
+#define logLine(x) std::cout << x << std::endl;
 
-int main()
-{
-	//Initialize variables
-	bool isFound = false;
-	vector<int> v;
-	ifstream puzzle_input;
-	int i, j, k;
-	//Open file
-	puzzle_input.open("C:/Users/TonyA/OneDrive/Documents/AoC2020/day-1/puzzleInput.txt");
-	//If file cannot open, return 1
-	if (!puzzle_input)
-	{
-		cout << "Could not file puzzleInput.txt for reading." << endl;
-		return 1;
-	}
-	//Loop through the file, and add each entry into vector v
-	while (!puzzle_input.eof())
-	{
-		int i;
-		string i_str;
-		puzzle_input >> i_str;
-		//Coverts each string to int
-		stringstream stream(i_str);
-		stream >> i;
-		v.push_back(i);
-	}
-	//Loop through vector v in search of the two entries that sum to equal 2020
-	for (i = 0; i < v.size()-1; i++)
-	{
-		for (j = i+1; j < v.size(); j++)
-		{
-			//When the solution is found, break out of the loop
-			if (v.at(i) + v.at(j) == 2020)
-			{
-				isFound = true;
-				break;
-			}
-		}
-		if (isFound)
-		{
-			break;
-		}
-	}
-	//Print result 1 to console
-	cout << v.at(i) * v.at(j) <<  endl;
-	//Loop through vector v in search of the three entries that sum to equal 2020
-	isFound = false;
-	for (i = 0; i < v.size()-2; i++)
-	{
-		for (j = i+1; j < v.size()-1; j++)
-		{
-			for (k = j+1; k < v.size(); k++)
-			{
-				if (v.at(i) + v.at(j) + v.at(k) == 2020)
-				{
-					isFound = true;
-					break;
-				}
-			}
-			if (isFound)
-			{
-				break;
-			}
-		}
-		if (isFound)
-		{
-			break;
-		}
-	}
-	//Print result 2 to console
-	cout << v.at(i) * v.at(j) * v.at(k) << endl;
-	return 0;
+class ExpenseReport {
+    private:
+        std::vector<int> input;
+    public:
+        //Constructor
+        ExpenseReport() {
+            //Open file for reading
+            std::ifstream in;
+            in.open("puzzleInput.txt");
+            if (!in) logLine("Error on file opening!");
+            //Parse the input, and store each number in vector input
+            while (!in.eof()) {
+                std::string s;
+                int i;
+                in >> s;
+                std::stringstream stream(s);
+                stream >> i;
+                input.push_back(i);
+            }
+            //Close file
+            in.close();
+        }
+        //Methods
+        //Solution to Part 1
+        int productOfTwoEntries() {
+            //Find the two numbers (i, j) that sum to 2020, and return the product
+            for (int i = 0; i < input.size()-1; i++) {
+                for (int j = i+1; j < input.size(); j++) {
+                    if (input.at(i) + input.at(j) == 2020) return input.at(i) * input.at(j);
+                }
+            }
+        }
+        //Solution to Part 2
+        int productOfThreeEntries() {
+            //Find the three numbers (i, j, k) that sum to 2020, and return the product
+            for (int i = 0; i < input.size()-2; i++) {
+                for (int j = i+1; j < input.size()-1; j++) {
+                    for (int k = j+1; k < input.size(); k++) {
+                        if (input.at(i) + input.at(j) + input.at(k) == 2020) return input.at(i) * input.at(j) * input.at(k);
+                    }
+                }
+            }
+        }
+};
+
+void day1() {
+    //Log solutions to day 1 to console
+    ExpenseReport myExpenseReport;
+    std::cout << myExpenseReport.productOfTwoEntries() << std::endl;
+    std::cout << myExpenseReport.productOfThreeEntries() << std::endl;
+}
+
+int main() {
+    day1();
+    return 0;
 }
